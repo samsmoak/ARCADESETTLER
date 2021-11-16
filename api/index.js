@@ -47,8 +47,12 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
+app.use(express.static(path.join(__dirname, "/client")));
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
 
-app.listen("5000", () => {
+app.listen(process.env.port || "5000", () => {
 	console.log("Backend is running");
 });
 // /Users/samsmoaki/Desktop/tailwind projects/blogapp/api/config.env
